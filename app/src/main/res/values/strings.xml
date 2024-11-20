@@ -3,4 +3,8 @@
     <string name="entrar">Entrar</string>
     <string name="text_cadastro">Cadastre-se aqui</string>
     <string name="text_senha">Esqueci minha senha</string>
+    <string name="title_cadastro">Cadastre-se</string>
+    <string name="instrucao_caracteres">• Use 8 caracteres ou mais para sua senha.</string>
+    <string name="instrucao_combinacao">• Use uma combinação de letras, números e símbolos.</string>
+    <string name="esquecidinho">Esquecidinho, hein?</string>
 </resources>
