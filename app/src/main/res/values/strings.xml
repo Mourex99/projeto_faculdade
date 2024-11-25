@@ -7,4 +7,6 @@
     <string name="instrucao_caracteres">• Use 8 caracteres ou mais para sua senha.</string>
     <string name="instrucao_combinacao">• Use uma combinação de letras, números e símbolos.</string>
     <string name="esquecidinho">Esquecidinho, hein?</string>
+    <string name="O_que_fazer">O que vamos fazer hoje?</string>
+    <string name="calculo">Quanto você ganha toda vez que vai ao banheiro?</string>
 </resources>

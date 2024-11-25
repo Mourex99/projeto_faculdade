@@ -12,6 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_facu"
         tools:targetApi="31">
+<<<<<<< Updated upstream
+=======
+        <activity
+            android:name=".calculo"
+            android:exported="false" />
+        <activity
+            android:name=".oque_fazer"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@layout/activity_form_login" />
+
+>>>>>>> Stashed changes
         <activity
             android:name=".FormSenha"
             android:exported="false" />
