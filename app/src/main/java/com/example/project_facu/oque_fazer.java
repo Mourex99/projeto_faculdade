@@ -11,9 +11,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class oque_fazer extends AppCompatActivity {
 
     private Button calcular_vaso;
+    private Button bt_deslogar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class oque_fazer extends AppCompatActivity {
         setContentView(R.layout.activity_oque_fazer);
 
         CalcularVaso();
+        IniciarComponentes();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -39,6 +43,22 @@ public class oque_fazer extends AppCompatActivity {
             }
         });
 
+        bt_deslogar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(oque_fazer.this, FormLogin.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+    }
+
+    private void IniciarComponentes(){
+        bt_deslogar = findViewById(R.id.bt_deslogar);
     }
 
     private void CalcularVaso() {

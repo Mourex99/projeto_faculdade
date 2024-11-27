@@ -31,24 +31,29 @@
         app:layout_constraintStart_toEndOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/focar_vaso"
+        android:id="@+id/historico"
         style="@style/Button_2"
-        android:text="Fofocar no Vaso"
+        android:text="Histórico"
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@id/calcular_vaso"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        style="@style/Button_2"
-        android:text="Calcular no Vaso"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/focar_vaso"
+    <Button
+        android:id="@+id/bt_deslogar"
+        android:text="Deslogar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:backgroundTint="@color/brown"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"/>
-
-
-
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
