@@ -1,58 +1,130 @@
 package com.example.project_facu;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-//public class calculo extends AppCompatActivity {
+public class calculo extends AppCompatActivity {
 
-   // @Override
-    //protected void onCreate(Bundle savedInstanceState) {
-        //super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
-        //setContentView(R.layout.activity_calculo);
-        //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            //Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            //v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            //return insets;
-        //});
-    //}
-//}
+    private EditText salarioEditText;
+    private EditText horasTrabalhadasEditText;
+    private EditText inicioCagadaEditText;
+    private EditText fimDaCagadaEditText;
+    private TextView resultadoTextView;
+    private ConstraintLayout miniTelaLayout;
+    private Button fecharButton;
 
-import java.util.Scanner;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calculo);
 
-import java.util.Scanner;
+        // Encontrar as Views pelo ID
+        salarioEditText = findViewById(R.id.salarioEditText);
+        horasTrabalhadasEditText = findViewById(R.id.horasTrabalhadasEditText);
+        inicioCagadaEditText = findViewById(R.id.inicioCagadaEditText);
+        fimDaCagadaEditText = findViewById(R.id.fimDaCagadaEditText);
+        resultadoTextView = findViewById(R.id.resultadoTextView);
+        miniTelaLayout = findViewById(R.id.miniTelaLayout);
+        fecharButton = findViewById(R.id.fecharButton);
 
-public class calculo {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // Configurar o listener de clique do botão calcular
+        findViewById(R.id.calcularButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calcular();
+            }
+        });
 
-        System.out.print("Digite seu salário mensal: R$ ");
-        double salarioMensal = scanner.nextDouble();
+        // Configurar listener de fecharButton
+        fecharButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                miniTelaLayout.setVisibility(View.GONE);
+            }
+        });
 
-        System.out.print("Digite o número de horas trabalhadas por semana: ");
-        int horasTrabalhadasPorSemana = scanner.nextInt();
+        // Configurar TextWatcher para inicioCagadaEditText
+        inicioCagadaEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-        System.out.print("Digite a hora de início da caminhada (em minutos, 24h): ");
-        int inicioCagada = scanner.nextInt();
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 2 && before == 0) {
+                    inicioCagadaEditText.append(":");
+                }
+            }
 
-        System.out.print("Digite a hora de fim da caminhada (em minutos, 24h): ");
-        int fimDaCagada = scanner.nextInt();
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
-        // Cálculos
-        int diasNoMes = 30; // Assumindo um mês com 30 dias
-        double horasTrabalhadasPorMes = horasTrabalhadasPorSemana * 4;
-        double valorHora = salarioMensal / horasTrabalhadasPorMes;
-        double minutosCagandoPorDia = fimDaCagada - inicioCagada;
-        double horasCagandoPorMes = minutosCagandoPorDia * 30 / 60;
-        double valorGanhoCagandoPorMes = valorHora * horasCagandoPorMes;
-        double valorGanhoCagandoPorDia = valorGanhoCagandoPorMes / diasNoMes;
+        // Configurar TextWatcher para fimDaCagadaEditText
+        fimDaCagadaEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-        // Exibindo o resultado
-        System.out.printf("Você 'ganha' R$%.2f por dia cagando entre os pontos minutosCagadoPorDia.\n", valorGanhoCagandoPorDia);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 2 && before == 0) {
+                    fimDaCagadaEditText.append(":");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void calcular() {
+        try {
+            // Obter os valores das Views
+            double salarioMensal = Double.parseDouble(salarioEditText.getText().toString());
+            int horasTrabalhadasPorSemana = Integer.parseInt(horasTrabalhadasEditText.getText().toString());
+            String inicioCagada = inicioCagadaEditText.getText().toString();
+            String fimDaCagada = fimDaCagadaEditText.getText().toString();
+
+            // Calcular valor por hora
+            double horasTrabalhadasPorMes = horasTrabalhadasPorSemana * 4;
+            double valorPorHora = salarioMensal / horasTrabalhadasPorMes;
+
+            // Converter horas para minutos
+            int inicioEmMinutos = converterHoraParaMinutos(inicioCagada);
+            int fimEmMinutos = converterHoraParaMinutos(fimDaCagada);
+
+            // Calcular a diferença em minutos
+            int diferencaEmMinutos = fimEmMinutos - inicioEmMinutos;
+
+            // Calcular ganhos durante o tempo no banheiro
+            double diferencaEmHoras = diferencaEmMinutos / 60.0;
+            double valorGanhoCagando = valorPorHora * diferencaEmHoras;
+
+            // Exibir o resultado na TextView
+            resultadoTextView.setText(String.format("Você ganhou R$%.2f", valorGanhoCagando));
+            miniTelaLayout.setVisibility(View.VISIBLE);
+
+        } catch (NumberFormatException e) {
+            // Lidar com erro de formato de número
+            resultadoTextView.setText("Erro: Formato de número inválido.");
+        }
+    }
+
+    private int converterHoraParaMinutos(String hora) {
+        String[] partes = hora.split(":");
+        int horas = Integer.parseInt(partes[0]);
+        int minutos = Integer.parseInt(partes[1]);
+        return horas * 60 + minutos;
     }
 }
