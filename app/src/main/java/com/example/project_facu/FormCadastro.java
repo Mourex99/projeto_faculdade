@@ -1,5 +1,6 @@
 package com.example.project_facu;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -131,6 +132,8 @@ public class FormCadastro extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d("db","Sucesso ao salvar os dados");
+                finish();
+                startActivity(new Intent(FormCadastro.this, FormLogin.class));
             }
         })
                 .addOnFailureListener(new OnFailureListener() {

@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_facu"
         tools:targetApi="31">
-
+        <activity
+            android:name=".FormHistorico"
+            android:exported="false" />
         <activity
             android:name=".calculo"
             android:exported="false" />

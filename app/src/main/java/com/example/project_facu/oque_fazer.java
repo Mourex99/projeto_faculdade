@@ -17,6 +17,7 @@ public class oque_fazer extends AppCompatActivity {
 
     private Button calcular_vaso;
     private Button bt_deslogar;
+    private Button historico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class oque_fazer extends AppCompatActivity {
 
         CalcularVaso();
         IniciarComponentes();
+        Historico();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -55,6 +57,18 @@ public class oque_fazer extends AppCompatActivity {
             }
         });
 
+        historico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(oque_fazer.this, FormHistorico.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void Historico() {
+        historico = findViewById(R.id.historico);
     }
 
     private void IniciarComponentes(){
